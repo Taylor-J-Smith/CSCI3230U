@@ -1,0 +1,28 @@
+{
+  "name": "time-passer",
+  "version": "0.0.0",
+  "description": "a collection of in-browser games focussed on helping you simply pass the time.",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodejs server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taylor-J-Smith/CSCI3230U.git"
+  },
+  "author": "Dennis Pacewicz, Taylor Smith",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "~1.10.1",
+    "browserify": "^12.0.1",
+    "express": "~4.11.0",
+    "vue": "git://github.com/vuejs/vue#dev"
+  },
+  "devDependencies": {
+    "beefy": "^2.1.5"
+  },
+  "bugs": {
+    "url": "https://github.com/Taylor-J-Smith/CSCI3230U/issues"
+  },
+  "homepage": "https://github.com/Taylor-J-Smith/CSCI3230U#readme"
+}
