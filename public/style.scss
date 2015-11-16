@@ -7,6 +7,9 @@ yellow: fff65e
 red: ff5454
 */
 $light-gray: #e8e8e8;
+$dark-gray: #212121;
+$base-width: 1020px;
+
 body { 
 	background:$light-gray;
 	color:#242424;
@@ -14,9 +17,28 @@ body {
 	font-weight: normal; 
 	font-family: Geneva, Tahoma, Verdana, sans-serif;
 }
+h1, h2, h3, h4, h5 {
+	letter-spacing:1px;
+}
 #app {
 	margin: auto;
-	width:1020px;
-	background:#eee;
+	max-width:$base-width;
+}
+#main {
 	padding:20px;
+}
+#footer {
+	z-index:10;
+	position:fixed;
+	bottom:0;
+	min-height:50px;
+	width:100%;
+	background:$dark-gray;
+	padding:0;
+}
+#footer a{
+	color:#eee;
+}
+#footer a:hover{
+	color:#d4d4d4;
 }
