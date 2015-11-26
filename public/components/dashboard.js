@@ -1,9 +1,12 @@
 module.exports = {
-  template: '<h1>{{msg}}</h1>this is the {{msg}} page.',
+  template: '<h1>{{page}}</h1>this is the {{page}} page.',
   replace: true,
   data: function () {
     return {
-      msg: 'dashboard'
+      page: 'dashboard'
     }
+  },
+  ready: function(){
+  	console.log("testing!");
   }
 }

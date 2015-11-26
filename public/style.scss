@@ -10,6 +10,42 @@ $light-gray: #e8e8e8;
 $dark-gray: #212121;
 $base-width: 1020px;
 
+.expand-transition {
+  transition: all .3s ease;
+  height: 30px;
+  padding: 10px;
+  background-color: #eee;
+  overflow: hidden;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.expand-enter, .expand-leave {
+  height: 0;
+  padding: 0 10px;
+  opacity: 0;
+}
+@keyframes slide-in {
+	from {
+		opacity: 0;
+		transform: translateX(-400px);
+	}
+	to {
+		opacity:1;
+		transform: translateX(0);
+	}
+}
+@keyframes slide-out {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity:0;
+		transform: translateX(400px);
+	}
+}
+
 body { 
 	background:$light-gray;
 	color:#242424;
@@ -27,12 +63,21 @@ h1, h2, h3, h4, h5 {
 #main {
 	padding:20px;
 }
+#game{
+	width:100%;
+	margin-top:10px;
+	background-color:#fff;
+	min-height:400px;
+}
+#game div {
+	padding:20px;
+}
 #footer {
 	z-index:10;
 	position:fixed;
 	bottom:0;
 	min-height:50px;
-	width:100%;
+	width:$base-width;
 	background:$dark-gray;
 	padding:0;
 }

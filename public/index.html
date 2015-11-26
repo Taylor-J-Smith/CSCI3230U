@@ -4,19 +4,21 @@
 	    <link rel='shortcut icon' href='' />
 	    <link rel='stylesheet' type='text/css' href='css/style.css' />
 		<script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/0.7.5/vue-router.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<div id="main">
-				{{ message }}<br>
-				<input v-model="message"><br>
-	    		<router-view></router-view>
-    		</div>
-    		<div id="footer">
-	       		<a v-link="{ path: '/' }">Go to Home</a>
-				<a v-link="{ path: '/about' }">Go to About</a>
-    		</div>
+		  <div id="main" >
+		    {{ message }}<br>
+		    <input v-model="message"><br>
+		    <router-view></router-view>
+		  </div>
+		  <div id="footer">
+		    <a v-link="{ path: '/' }">Go to Home</a>
+		    <a v-link="{ path: '/about' }">Go to About</a>
+		  </div>
 		</div>
 		<script src="bundle.js"></script>
 		<script src="./bundle.js"></script>

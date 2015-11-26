@@ -1,8 +1,10 @@
 // root router component
 var App = Vue.extend({
-	data: function () {
-    	return { message: 'default' }
-  	}
+  data: function () {
+    return {
+      message: ''
+    }
+  }
 })
 
 // create a router instance.
@@ -19,6 +21,9 @@ router.map({
     },
     '/about': {
         component: require('./components/about.js')
+    },
+    '/singleplayer': {
+        component: require('./components/singleplayer.js')
     },
     '*': {
         component: require('./components/404.js')
