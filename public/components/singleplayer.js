@@ -7,7 +7,7 @@ module.exports = {
     }
   },
   ready: function(){
-    $('#game div').text('game goes here!');
   	console.log("testing!");
+    d3.select('#game div').text('game goes here!');
   }
 }
