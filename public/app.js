@@ -4,9 +4,16 @@ var App = Vue.extend({
     return {
       message: ''
     }
+  },
+  methods: {
+    togglefooter: function(event){
+      var page = d3.select("#main")
+      page.classed("slide", !page.classed("slide"));
+    }
   }
 })
 
+Vue.use(require('vue-resource'));
 // create a router instance.
 var router = new VueRouter({
   history: true,

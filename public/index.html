@@ -9,15 +9,21 @@
 	</head>
 	<body>
 		<div id="app">
-		  <div id="main" >
+		  <div id="main" class="shadow">
 		    {{ message }}<br>
 		    <input v-model="message"><br>
 		    <router-view></router-view>
 		  </div>
 		  <div id="footer">
-		    <a v-link="{ path: '/' }">Go to Home</a>
-		    <a v-link="{ path: '/about' }">Go to About</a>
-		    <a v-link="{ path: '/singleplayer' }">Go to Singleplayer</a>
+		  login + signup + account controls go here!
+		  	<div id="nav">
+		  		<div>
+			    <a v-link="{ path: '/' }">Go to Home</a>
+			    <a v-link="{ path: '/about' }">Go to About</a>
+			    <a v-link="{ path: '/singleplayer' }">Go to Singleplayer</a>
+			    <button v-on:click="togglefooter">Toggle Footer</button>
+			    </div>
+		    </div>
 		  </div>
 		</div>
 		<script src="./bundle.js"></script>
