@@ -4,21 +4,41 @@
 	    <link rel='shortcut icon' href='' />
 	    <link rel='stylesheet' type='text/css' href='css/style.css' />
 		<script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/0.7.5/vue-router.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<div id="main">
-				{{ message }}<br>
-				<input v-model="message"><br>
-	    		<router-view></router-view>
-    		</div>
-    		<div id="footer">
-	       		<a v-link="{ path: '/' }">Go to Home</a>
-				<a v-link="{ path: '/about' }">Go to About</a>
-    		</div>
+		  <div id="main" class="shadow">
+		  	<div class="wrap">
+		    {{ message }}<br>
+		    <input v-model="message"><br>
+		    <router-view></router-view>
+		    </div>
+		  </div>
+		  <div id="footer">
+		  <div class="wrap">
+		  	<div id="login">
+			  login to track your high scores!
+			  <form>
+			  	<input type="text"><br>
+			  	<input type="password">
+			  </form>
+			</div>
+			<div id="controls">
+				buttons and stats here
+			</div>
+		  </div>
+		  	<div id="nav">
+		  		<div>
+			    <a v-link="{ path: '/' }">Home</a>
+			    <a v-link="{ path: '/about' }">About</a>
+			    <a v-link="{ path: '/singleplayer' }">Singleplayer</a>
+			    <button v-on:click="togglefooter">Account Controls</button>
+			    </div>
+		    </div>
+		  </div>
 		</div>
-		<script src="bundle.js"></script>
 		<script src="./bundle.js"></script>
 	</body>
 </html>

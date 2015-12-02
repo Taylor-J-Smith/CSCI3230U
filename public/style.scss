@@ -7,37 +7,168 @@ yellow: fff65e
 red: ff5454
 */
 $light-gray: #e8e8e8;
-$dark-gray: #212121;
+$dark-gray: #313131;
 $base-width: 1020px;
+$small-width: 480px;
+
+.expand-transition {
+  transition: all .3s ease;
+  height: 30px;
+  padding: 10px;
+  background-color: #eee;
+  overflow: hidden;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.expand-enter, .expand-leave {
+  height: 0;
+  padding: 0 10px;
+  opacity: 0;
+}
+@keyframes slide-in {
+	from {
+		opacity: 0;
+		transform: translateX(-400px);
+	}
+	to {
+		opacity:1;
+		transform: translateX(0);
+	}
+}
+@keyframes slide-out {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity:0;
+		transform: translateX(400px);
+	}
+}
 
 body { 
-	background:$light-gray;
+	background:$dark-gray;
 	color:#242424;
 	margin:0px auto;
 	font-weight: normal; 
 	font-family: Geneva, Tahoma, Verdana, sans-serif;
+	height:100vh;
+	overflow:hidden;
 }
 h1, h2, h3, h4, h5 {
 	letter-spacing:1px;
 }
+.shadow {
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.3);
+	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.3);
+}
 #app {
-	margin: auto;
-	max-width:$base-width;
+	max-width:100%;
+	min-width:$small-width;
+	height: inherit;
 }
 #main {
+	max-width:inherit;
+	min-width:inherit;
+	height:calc(100% - 50px);
+	background:$light-gray;
+	z-index:10;
+	position:relative;
+	-moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+#main.slide {
+	transform: translateY(-300px);
+}
+.wrap {
+	max-width:$base-width;
+	min-width:$small-width;
+	margin:auto;
+}
+.padded{
+	padding:10px;
+}
+#header {
+	padding:20px;
+}
+#login {
+	width:620px;
+	font-size:130%;
+	padding:20px;
+	margin:0;
+	float: left;
+	display:inline-block;
+}
+#controls {
+	padding:20px;
+	width:320px;
+	margin:0;
+	display:inline-block;
+}
+#game{
+	width:100%;
+	margin-top:10px;
+	background-color:#fff;
+	min-height:400px;
+}
+#game div {
 	padding:20px;
 }
 #footer {
-	z-index:10;
+	color:#fff;
+	z-index:0;
 	position:fixed;
 	bottom:0;
-	min-height:50px;
+	min-height:350px;
 	width:100%;
-	background:$dark-gray;
 	padding:0;
+}
+#footer div {
+
+}
+#footer div form input {
+	padding:6px 8px;
+	background-color:#eee;
+	border:0;
+	font-weight:bold;
+	min-width:200px;
+	margin-top:20px;
+}
+#footer #nav{
+	min-height:50px;
+	height:50px;
+	width:100%;
+	margin:0;
+	bottom:0;
+	position:absolute;
+}
+#footer #nav div {
+	position:relative;
+	max-width:$base-width;
+	min-width:$small-width;
+	margin:0 auto;
+	padding:12px;
+}
+#footer #nav div button{
+	float: right;
+	padding:6px 8px;
+	border:0;
+	font-weight:bold;
+}
+#footer #nav div button:hover{
+	background-color:#fff;
+	cursor:pointer;
 }
 #footer a{
 	color:#eee;
+	text-decoration:none;
+	margin-right:10px;
+	font-weight:bold;
+	font-size:20px;
 }
 #footer a:hover{
 	color:#d4d4d4;

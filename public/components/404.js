@@ -1,9 +1,4 @@
 module.exports = {
-  template: 'this is the {{msg}} page.',
-  replace: true,
-  data: function () {
-    return {
-      msg: '404'
-    }
-  }
+  template: '<h1>error 404</h1><h5>you must be lost.</h5>',
+  replace: true
 }

@@ -13,12 +13,18 @@
   "author": "Dennis Pacewicz, Taylor Smith",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "~1.10.1",
+    "bcrypt-nodejs": "*",
+    "body-parser": "~1.0.0",
     "browserify": "^12.0.1",
     "express": "~4.11.0",
+    "express-session": "~1.0.0",
+    "jsonwebtoken": "*",
+    "mongoose": "~3.8.23",
+    "morgan": "~1.0.0",
     "node-sass": "^3.4.2",
     "node-sass-middleware": "^0.9.7",
-    "vue": "git://github.com/vuejs/vue#dev"
+    "vue": "git://github.com/vuejs/vue#dev",
+    "vue-resource": "^0.1.17"
   },
   "bugs": {
     "url": "https://github.com/Taylor-J-Smith/CSCI3230U/issues"
