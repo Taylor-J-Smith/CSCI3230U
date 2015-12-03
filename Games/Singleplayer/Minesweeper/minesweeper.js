@@ -1,7 +1,9 @@
 const MINE = "x";
 
-var height = 600;
-var width = 600;
+const DEFAULT_TILE_COLOUR = "#999999";
+const SHADED_TILE_COLOUR = "#666666";
+const FLAGGED_COLOUR = "firebrick";
+const BORDER_COLOUR = "black";
 
 var marginLeft = 10;
 var marginTop = 10;
@@ -14,6 +16,9 @@ var nMines = 16;
 var tileHeight = 39;
 var tileWidth = 39;
 
+var height = tileHeight*rows + 2*marginTop;
+var width = tileWidth*columns + 2*marginLeft;
+
 var board = initializeBoard(create2DArray(rows, columns), nMines);
 var clicked = create2DArray(rows,columns);
 var flagged = create2DArray(rows,columns);
@@ -21,7 +26,8 @@ var flagged = create2DArray(rows,columns);
 var svg = d3.select("body")
   .append("svg")
   .attr("height", height)
-  .attr("width", width);
+  .attr("width", width)
+  .on("contextmenu", function() {d3.event.preventDefault()})
 
 var groups = svg.selectAll("g")
   .data(board)
@@ -31,14 +37,13 @@ var groups = svg.selectAll("g")
       .enter().append("g")
       .attr("id", function(d,i,j){return "G" + j + "-" + i;})
 
-
 var rects = groups.append("rect")
   .attr("height", tileHeight)
   .attr("width", tileWidth)
   .attr("x", function(d,i,j){return i*tileWidth + marginLeft})
   .attr("y", function(d,i,j){return j*tileHeight + marginTop})
-  .attr("fill", "#999999")
-  .attr("stroke", "black")
+  .attr("fill", DEFAULT_TILE_COLOUR)
+  .attr("stroke", BORDER_COLOUR)
   .attr("stroke-width", 1)
   .on("click", function(d,i,j){onClick(board,j,i)})
   .on("contextmenu", function(d,i,j){onRightClick(board,j,i)})
@@ -48,7 +53,8 @@ var text = groups.append("text")
   .attr("y", function(d,i,j){return j*tileHeight + marginTop + 20})
   .attr("alignment-baseline", "middle")
   .attr("text-anchor", "middle")
-  .attr("font-size", tileWidth/2);
+  .attr("font-size", tileWidth/2)
+  .style("pointer-events", "none")
 
 function create2DArray(rows, columns)
 {
@@ -204,13 +210,13 @@ function onClick(array,i,j)
         .attr("fill", "red")
         .text(array[i][j]);
 
-      endGame();
+      gameLost();
     }
     else if(array[i][j] == 0)
     {
       d3.select("#G" + i + "-" + j)
         .select("rect")
-        .attr("fill", "#666666")
+        .attr("fill", SHADED_TILE_COLOUR)
 
       zeroClick(array,i,j)
       checkWin();
@@ -295,30 +301,9 @@ function zeroClick(array,i,j)
     }
 }
 
-function endGame()
-{
-  console.error("Game Over");
-
-  for(var i = 0; i < rows; i++)
-  {
-    for(var j = 0; j < columns; j++)
-    {
-      clicked[i][j] = 1;
-
-      if(board[i][j] == MINE)
-      {
-        d3.select("#G" + i + "-" + j)
-          .select("text")
-          .text(MINE);
-      }
-    }
-  }
-}
 
 function checkWin()
 {
-  //console.log("checkWin called");
-
   var count = 0;
 
   for(var i = 0; i < rows; i++)
@@ -334,22 +319,7 @@ function checkWin()
 
   if(count == rows*columns - nMines)
   {
-    console.log("Winner!");
-
-    for(var i = 0; i < rows; i++)
-    {
-      for(var j = 0; j < columns; j++)
-      {
-        clicked[i][j] = 1;
-
-        if(board[i][j] == MINE)
-        {
-          d3.select("#G" + i + "-" + j)
-            .select("text")
-            .text(MINE);
-        }
-      }
-    }
+    gameWon();
   }
 }
 
@@ -361,7 +331,7 @@ function onRightClick(array,i,j)
     {
         d3.select("#G" + i + "-" + j)
           .select("rect")
-          .attr("fill", "#999999")
+          .attr("fill", DEFAULT_TILE_COLOUR)
 
         flagged[i][j] = 0;
     }
@@ -369,7 +339,7 @@ function onRightClick(array,i,j)
     {
       d3.select("#G" + i + "-" + j)
         .select("rect")
-        .attr("fill", "firebrick")
+        .attr("fill", FLAGGED_COLOUR)
 
       flagged[i][j] = 1;
     }
@@ -389,11 +359,61 @@ function newGame()
   }
 
   rects
-    .attr("fill", "#999999")
+    .attr("fill", DEFAULT_TILE_COLOUR)
 
   text
     .text("")
 
   board = initializeBoard(board, nMines);
+}
 
+
+function gameWon()
+{
+  console.log("Winner!");
+
+  for(var i = 0; i < rows; i++)
+  {
+    for(var j = 0; j < columns; j++)
+    {
+      clicked[i][j] = 1;
+
+      if(board[i][j] == MINE)
+      {
+        d3.select("#G" + i + "-" + j)
+          .select("text")
+          .text(MINE);
+      }
+    }
+  }
+
+  d3.xhr("/api/msWin", function(err, res)
+  {
+    console.log("win xhr request");
+  })
+}
+
+function gameLost()
+{
+  console.error("Game Over");
+
+  for(var i = 0; i < rows; i++)
+  {
+    for(var j = 0; j < columns; j++)
+    {
+      clicked[i][j] = 1;
+
+      if(board[i][j] == MINE)
+      {
+        d3.select("#G" + i + "-" + j)
+          .select("text")
+          .text(MINE);
+      }
+    }
+  }
+
+  d3.xhr("/api/msLoss", function(err, res)
+  {
+    console.log("loss xhr request");
+  })
 }

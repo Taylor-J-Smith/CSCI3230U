@@ -8,8 +8,8 @@ var userSchema = mongoose.Schema({
         name         : {type: String, default: "" },
         email        : {type: String, default: "" },
         password     : {type: String, default: "" },
-        score1       : {type: Number, default: 0 },
-        score2		 : {type: Number, default: 0 },
+        msW   		   : {type: Number, default: 0 },
+        msL					 : {type: Number, default: 0 },
         score3		 : {type: Number, default: 0 },
         score4		 : {type: Number, default: 0 }
     }

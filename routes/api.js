@@ -2,7 +2,7 @@ var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 
 module.exports = function(app, express) {
- 
+
   app.post('/api/signup', function(req, res) {
     User.find({'local.email': req.body.email}, function(err, user) {
       if (user.length == 0) {
@@ -21,6 +21,16 @@ module.exports = function(app, express) {
       }
     });
   });
+
+  app.post('/api/msWin', function(req, res){
+    //update row in table indicating a minesweeper win.
+    console.log("win api called");
+  })
+
+  app.post('/api/msLoss', function(req, res){
+    //update row in table indicating a minesweeper loss.
+    console.log("loss api called");
+  })
 
   app.post('/api/login', function(req, res) {
     User.findOne({
@@ -58,27 +68,27 @@ module.exports = function(app, express) {
 function isLoggedIn(req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
       if (token) {
-    jwt.verify(token, app.get('superSecret'), function(err, decoded) {      
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        req.decoded = decoded;   
+        req.decoded = decoded;
         next();
       }
     });
   } else {
-    return res.json({ success: false, message: 'Not Authorized.'}); 
+    return res.json({ success: false, message: 'Not Authorized.'});
   }
 }
 
    app.get('/api/user',isLoggedIn, function(req, res) {
  User.findOne({_id:req.decoded._id}, function(err, user) {
-res.json({ success: true, message: user}); 
+res.json({ success: true, message: user});
  });
   });
 
 app.get('/api/*', function(req, res) {
-    res.status(404).send({ 
+    res.status(404).send({
         success: false
     });
   });
