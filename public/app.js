@@ -52,6 +52,7 @@ var App = Vue.extend({
           console.log("log in")
           console.log(data.token)
           window.localStorage['LOCAL_TOKEN_KEY'] = data.token;
+          window.location.href = "/"
         } else {
           console.log("incorrect login")
         }
