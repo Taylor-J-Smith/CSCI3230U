@@ -1,14 +1,13 @@
 // root router component
 var App = Vue.extend({
-  data: function () {
-    return {
-      message: ''
-    }
-  },
   methods: {
     togglefooter: function(event){
       var page = d3.select("#main")
       page.classed("slide", !page.classed("slide"));
+    },
+    collapse: function(){
+      var page = d3.select("#main")
+      page.classed("slide", false);
     }
   }
 })
@@ -28,6 +27,9 @@ router.map({
     },
     '/about': {
         component: require('./components/about.js')
+    },
+    '/signup': {
+        component: require('./components/signup.js')
     },
     '/singleplayer': {
         component: require('./components/singleplayer.js')

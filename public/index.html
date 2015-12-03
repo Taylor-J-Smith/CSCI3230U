@@ -11,19 +11,21 @@
 		<div id="app">
 		  <div id="main" class="shadow">
 		  	<div class="wrap">
-		    {{ message }}<br>
-		    <input v-model="message"><br>
+		    <br>
+		    
 		    <router-view></router-view>
 		    </div>
 		  </div>
 		  <div id="footer">
 		  <div class="wrap">
 		  	<div id="login">
-			  login to track your high scores!
+			  
 			  <form>
+			  log in to track your high scores!<br>
 			  	<input type="text"><br>
-			  	<input type="password">
-			  </form>
+			  	<input type="password"><br>
+			  </form><br>
+			  don't have an account? <a v-link="{ path: '/signup'}" v-on:click="collapse">sign up</a>
 			</div>
 			<div id="controls">
 				buttons and stats here
@@ -31,10 +33,10 @@
 		  </div>
 		  	<div id="nav">
 		  		<div>
-			    <a v-link="{ path: '/' }">Home</a>
-			    <a v-link="{ path: '/about' }">About</a>
-			    <a v-link="{ path: '/singleplayer' }">Singleplayer</a>
-			    <button v-on:click="togglefooter">Account Controls</button>
+			    <a v-link="{ path: '/' }" v-on:click="collapse">Home</a>
+			    <a v-link="{ path: '/about' }" v-on:click="collapse">About</a>
+			    <a v-link="{ path: '/singleplayer' }" v-on:click="collapse">Singleplayer</a>
+			    <button v-on:click="togglefooter" v-on:click="collapse">Account Controls</button>
 			    </div>
 		    </div>
 		  </div>

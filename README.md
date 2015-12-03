@@ -6,7 +6,7 @@ Once you've cloned the git repo, in the root directory of the project...
 
 **2.** Upgrade node package manager using `sudo npm install npm -g`
 
-**3.** Install project dependencies with `npm install`
+**3.** Install project dependencies with `sudo npm install`
 
 **4.** Bundle all of the vue components: `sh build.sh`
 

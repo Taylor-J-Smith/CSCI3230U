@@ -97,11 +97,13 @@ h1, h2, h3, h4, h5 {
 }
 #login {
 	width:620px;
-	font-size:130%;
 	padding:20px;
 	margin:0;
 	float: left;
 	display:inline-block;
+}
+#login form {
+	font-size:130%;
 }
 #controls {
 	padding:20px;
@@ -138,6 +140,7 @@ h1, h2, h3, h4, h5 {
 	min-width:200px;
 	margin-top:20px;
 }
+
 #footer #nav{
 	min-height:50px;
 	height:50px;
