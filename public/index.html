@@ -22,7 +22,7 @@
 			  <form>
 			  log in to track your high scores!<br>
 			  	<input type="text" v-model="email"><br>
-			  	<input type="password" v-model="password">{{password}}<br>
+			  	<input type="password" v-model="password"><br>
 			  	<button v-on:click="login($event)">log in</button>
 			  </form><br>
 			  don't have an account? <a v-link="{ path: '/signup'}" v-on:click="collapse">sign up</a>

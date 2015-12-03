@@ -25,7 +25,7 @@ var App = Vue.extend({
           console.log("log in")
           console.log(data.token)
         } else {
-          console.log("false")
+          console.log("incorrect login")
         }
       })
     }

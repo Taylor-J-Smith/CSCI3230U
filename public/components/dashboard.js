@@ -5,8 +5,5 @@ module.exports = {
     return {
       page: 'dashboard',
     }
-  },
-  ready: function(){
-  	console.log("testing!");
   }
 }

@@ -7,7 +7,6 @@ module.exports = {
     }
   },
   ready: function(){
-  	console.log("testing!");
     d3.select('#game div').text('game goes here!');
   }
 }
