@@ -24,12 +24,12 @@ module.exports = function(app, express) {
 
   app.post('/api/msWin', function(req, res){
     //update row in table indicating a minesweeper win.
-    console.log("win api called");
+    res.send("msWin responding")
   })
 
   app.post('/api/msLoss', function(req, res){
     //update row in table indicating a minesweeper loss.
-    console.log("loss api called");
+    res.send("msLoss responding")
   })
 
   app.post('/api/login', function(req, res) {

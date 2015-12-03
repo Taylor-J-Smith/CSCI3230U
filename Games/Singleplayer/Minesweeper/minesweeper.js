@@ -387,10 +387,9 @@ function gameWon()
     }
   }
 
-  d3.xhr("/api/msWin", function(err, res)
-  {
-    console.log("win xhr request");
-  })
+  d3.text("/api/msLoss")
+    .header("Content-type", "application/json")
+    .post(JSON.stringify("sampleSessionToken"), function(error, text) { console.log(text); });
 }
 
 function gameLost()
@@ -412,8 +411,8 @@ function gameLost()
     }
   }
 
-  d3.xhr("/api/msLoss", function(err, res)
-  {
-    console.log("loss xhr request");
-  })
+  d3.text("/api/msLoss")
+    .header("Content-type", "application/json")
+    .post(JSON.stringify("sampleSessionToken"), function(error, text) { console.log(text); });
+
 }
