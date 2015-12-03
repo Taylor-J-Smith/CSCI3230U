@@ -27,8 +27,9 @@
 			  </form><br>
 			  don't have an account? <a v-link="{ path: '/signup'}" v-on:click="collapse">sign up</a>
 			</div>
-			<div id="controls">
-				buttons and stats here
+			<div id="controls" class="hidden">
+				{{usr}}<br>
+				<button v-on:click="logout">log out</button>
 			</div>
 		  </div>
 		  	<div id="nav">

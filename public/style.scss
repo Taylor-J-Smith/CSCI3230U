@@ -9,7 +9,7 @@ red: ff5454
 $light-gray: #e8e8e8;
 $dark-gray: #313131;
 $base-width: 1020px;
-$small-width: 480px;
+$small-width: 430px;
 
 .expand-transition {
   transition: all .3s ease;
@@ -113,6 +113,9 @@ h1, h2, h3, h4, h5 {
 #login form {
 	font-size:130%;
 }
+#login.hidden, #controls.hidden{
+	display:none;
+}
 #controls {
 	padding:20px;
 	max-width:620px;
@@ -123,7 +126,7 @@ h1, h2, h3, h4, h5 {
 	display:inline-block;
 }
 #game{
-	width:100%;
+	width:450px;
 	margin-top:10px;
 	background-color:#fff;
 	min-height:400px;
