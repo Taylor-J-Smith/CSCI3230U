@@ -1,5 +1,94 @@
 /* CSS goes here */
 
 body {
-  background-color: red;
+  background: #FAF8EF none repeat scroll 0% 0%;
+}
+
+h1 {
+  display: inline-block;
+}
+
+div {
+  display: inline-block;
+}
+
+#header, #pre-game, #game, #post-game{
+  width: 40%;
+  margin: 10px auto;
+  border: 1px solid black;
+  padding: 10px;
+  display: block;
+}
+
+#header h1 {
+}
+
+#scores {
+  float: right;
+}
+#scores div{
+  border-radius: 15px;
+  background: #666666;
+  width: 100px;
+}
+
+#scores p {
+  display: block;
+  text-align: center
+}
+
+#pre-game p {
+  display: inline-block;
+}
+
+#new-game {
+  float: right;
+  border-radius: 5px;
+  background: #654321;
+  margin: 1em 0px;
+  cursor: pointer;
+}
+
+#game{
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+}
+
+#game:before{
+	content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+
+#game div{
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+#grid {
+  display: block;
+  position: relative;
+  border-radius: 15px;
+  background: #555555;
+}
+
+#grid .row{
+    display: block;
+    position: relative;
+    height: 20%;
+    margin-top: 4%;
+}
+
+#grid .background-tile{
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  width: 20%;
+  margin-left: 4%;
+  border-radius: 15px;
+  background: #999999;
 }
