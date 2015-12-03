@@ -27,8 +27,16 @@ var App = Vue.extend({
       d3.select("#login").classed("hidden", true)
       d3.select("#controls").classed("hidden", false)
       this.status = 'account'
-      var u = this.$http.get('/api/user/'+window.localStorage['LOCAL_ID'])
-      alert(u.success)
+      console.log(window.localStorage['LOCAL_ID'])
+      this.$http.get('/api/user', this.id, function (data, status, request) {
+
+          // set data on vm
+          //this.$set('someData', data)
+          console.log(data)
+      }).error(function (data, status, request) {
+          // handle error
+          console.log("error")
+      })
     } else {
       alert("not logged in")
       this.status = 'log in'

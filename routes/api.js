@@ -66,6 +66,7 @@ module.exports = function(app, express) {
 
 
 function isLoggedIn(req, res, next) {
+    console.log("logged in check")
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
       if (token) {
     jwt.verify(token, app.get('superSecret'), function(err, decoded) {
@@ -81,8 +82,8 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-   app.get('/api/user',isLoggedIn, function(req, res) {
- User.findOne({_id:req.decoded._id}, function(err, user) {
+   app.get('/api/user', function(req, res) {
+ User.findOne({_id:req}, function(err, user) {
 res.json({ success: true, message: user});
  });
   });
