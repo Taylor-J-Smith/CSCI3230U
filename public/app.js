@@ -1,11 +1,33 @@
+// token validation
+function tokenValid() {
+      alert("token validation")
+      var jwt  = window.localStorage['LOCAL_TOKEN_KEY']
+        if (jwt) {
+          return true;
+        } else {
+          return false;
+        }
+}
+
 // root router component
 var App = Vue.extend({
   data: function(){
     return {
+      auth: false,
       status: 'log in',
       usr: 'default',
       email: '',
       password: '', // TODO: storing plaintext password is a bad idea
+    }
+  },
+  ready: function(){
+    console.log(window.localStorage['LOCAL_TOKEN_KEY'])
+    if(tokenValid()){
+      alert("logged in")
+      this.auth = true
+      d3.select("#login").classed("hidden", true)
+    } else {
+      alert("not logged in")
     }
   },
   methods: {
@@ -29,10 +51,15 @@ var App = Vue.extend({
         if(data.success){
           console.log("log in")
           console.log(data.token)
+          window.localStorage['LOCAL_TOKEN_KEY'] = data.token;
         } else {
           console.log("incorrect login")
         }
       })
+    },
+    logout: function(){
+      window.localStorage.removeItem('LOCAL_TOKEN_KEY')
+      window.location.href = "/"
     }
   }
 })

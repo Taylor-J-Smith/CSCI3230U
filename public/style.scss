@@ -113,6 +113,9 @@ h1, h2, h3, h4, h5 {
 #login form {
 	font-size:130%;
 }
+#login.hidden{
+	display:none;
+}
 #controls {
 	padding:20px;
 	max-width:620px;
