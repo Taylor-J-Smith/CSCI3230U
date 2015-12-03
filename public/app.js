@@ -1,6 +1,5 @@
 // token validation
 function tokenValid() {
-      alert("token validation")
       var jwt  = window.localStorage['LOCAL_TOKEN_KEY']
         if (jwt) {
           return true;
@@ -23,11 +22,13 @@ var App = Vue.extend({
   ready: function(){
     console.log(window.localStorage['LOCAL_TOKEN_KEY'])
     if(tokenValid()){
-      alert("logged in")
+      alert("logged in usr: "+window.localStorage['LOCAL_ID'])
       this.auth = true
       d3.select("#login").classed("hidden", true)
       d3.select("#controls").classed("hidden", false)
       this.status = 'account'
+      var u = this.$http.get('/api/user/'+window.localStorage['LOCAL_ID'])
+      alert(u.success)
     } else {
       alert("not logged in")
       this.status = 'log in'
@@ -53,8 +54,8 @@ var App = Vue.extend({
       this.$http.post('/api/login', data, function (data, status, request){
         if(data.success){
           console.log("log in")
-          console.log(data.token)
           window.localStorage['LOCAL_TOKEN_KEY'] = data.token;
+          window.localStorage['LOCAL_ID'] = data.id;
           window.location.href = "/"
         } else {
           console.log("incorrect login")
@@ -63,6 +64,7 @@ var App = Vue.extend({
     },
     logout: function(){
       window.localStorage.removeItem('LOCAL_TOKEN_KEY')
+      window.localStorage.removeItem('LOCAL_ID')
       window.location.href = "/"
     }
   }
