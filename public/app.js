@@ -26,8 +26,11 @@ var App = Vue.extend({
       alert("logged in")
       this.auth = true
       d3.select("#login").classed("hidden", true)
+      d3.select("#controls").classed("hidden", false)
+      this.status = 'account'
     } else {
       alert("not logged in")
+      this.status = 'log in'
     }
   },
   methods: {
