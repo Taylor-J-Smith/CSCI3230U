@@ -308,12 +308,58 @@ module.exports = {
     {
       console.error("Game Over");
 
-      //do end game stuff
+      for(var i = 0; i < rows; i++)
+      {
+        for(var j = 0; j < columns; j++)
+        {
+          clicked[i][j] = 1;
+
+          if(board[i][j] == MINE)
+          {
+            d3.select("#G" + i + "-" + j)
+              .select("text")
+              .text(MINE);
+          }
+        }
+      }
     }
 
     function checkWin()
     {
-      //console.log("checkWin called");
+    //console.log("checkWin called");
+
+    var count = 0;
+
+    for(var i = 0; i < rows; i++)
+    {
+      for(var j = 0; j < columns; j++)
+      {
+        if(clicked[i][j] == 1 && board[i][j] != MINE)
+        {
+          count++;
+        }
+      }
+    }
+
+    if(count == rows*columns - nMines)
+    {
+      console.log("Winner!");
+
+      for(var i = 0; i < rows; i++)
+      {
+        for(var j = 0; j < columns; j++)
+        {
+          clicked[i][j] = 1;
+
+          if(board[i][j] == MINE)
+          {
+            d3.select("#G" + i + "-" + j)
+              .select("text")
+              .text(MINE);
+          }
+        }
+      }
+    }
     }
 
     function onRightClick(array,i,j)
@@ -337,6 +383,27 @@ module.exports = {
           flagged[i][j] = 1;
         }
       }
+    }
+    function newGame()
+    {
+      for(var i = 0; i < rows; i++)
+      {
+        for(var j = 0; j < columns; j++)
+        {
+          clicked[i][j] = 0;
+          flagged[i][j] = 0;
+          board[i][j] = 0;
+        }
+      }
+
+      rects
+        .attr("fill", "#999999")
+
+      text
+        .text("")
+
+      board = initializeBoard(board, nMines);
+
     }
   }
 }
