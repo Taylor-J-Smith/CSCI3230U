@@ -39,12 +39,13 @@ module.exports = function(app, express) {
       if (user){
       if (user.validPassword(req.body.password)) {
         console.log(user.local);
-        var token = jwt.sign({ _id: user._id,group:user.local.group,email:user.local.email}, app.get('superSecret'), {expiresIn: 300});
+        var token = jwt.sign({ _id: user._id,email:user.local.email}, app.get('superSecret'), {expiresIn: 300});
         user.local.token = token;
         user.save();
         res.json({
           success: true,
-          token: token
+          token: token,
+          id: user._id
         });
       } else {
         res.json({
