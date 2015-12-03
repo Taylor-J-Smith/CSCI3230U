@@ -11,11 +11,16 @@ var App = Vue.extend({
   methods: {
     togglefooter: function(event){
       var page = d3.select("#main")
-      page.classed("slide", !page.classed("slide"));
+      var footer = d3.select("#footer")
+      page.classed("slide", !page.classed("slide"))
+      footer.classed("slide", page.classed("slide"))
     },
     collapse: function(){
       var page = d3.select("#main")
-      page.classed("slide", false);
+      var footer = d3.select("#footer")
+      page.classed("slide", false)
+      footer.classed("slide", false)
+
     },
     login: function(event){
       event.preventDefault()
@@ -51,8 +56,8 @@ router.map({
     '/signup': {
         component: require('./components/signup.js')
     },
-    '/singleplayer': {
-        component: require('./components/singleplayer.js')
+    '/minesweeper': {
+        component: require('./components/minesweeper.js')
     },
     '*': {
         component: require('./components/404.js')
