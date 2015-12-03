@@ -3,7 +3,7 @@ module.exports = {
   replace: true,
   data: function () {
     return {
-      page: 'dashboard'
+      page: 'dashboard',
     }
   },
   ready: function(){

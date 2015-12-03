@@ -1,5 +1,13 @@
 // root router component
 var App = Vue.extend({
+  data: function(){
+    return {
+      status: 'log in',
+      usr: 'default',
+      email: '',
+      password: '', // TODO: storing plaintext password is a bad idea
+    }
+  },
   methods: {
     togglefooter: function(event){
       var page = d3.select("#main")
@@ -8,6 +16,18 @@ var App = Vue.extend({
     collapse: function(){
       var page = d3.select("#main")
       page.classed("slide", false);
+    },
+    login: function(event){
+      event.preventDefault()
+      var data = JSON.stringify({email: this.email, password: this.password})
+      this.$http.post('/api/login', data, function (data, status, request){
+        if(data.success){
+          console.log("log in")
+          console.log(data.token)
+        } else {
+          console.log("false")
+        }
+      })
     }
   }
 })
