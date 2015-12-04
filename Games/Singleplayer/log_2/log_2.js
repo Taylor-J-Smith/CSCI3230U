@@ -59,7 +59,23 @@ var numbers = bGroundGroups.append("text")
   .attr("y", tileHeight/2)
   .attr("font-size", 50)
   .attr("alignment-baseline", "middle")
+  .attr("text-anchor", "middle");
+
+var endGame = svg.append("rect")
+  .attr("height", 4*tileHeight + 5*tileMargin)
+  .attr("width", 4*tileWidth + 5*tileMargin)
+  .attr("rx", DEFAULT_CURVE)
+  .attr("ry", DEFAULT_CURVE)
+  .attr("fill", "black");
+
+var endGameText = svg.append("text")
+  .attr("x", (4*tileWidth + 5*tileMargin)/2)
+  .attr("y", (4*tileHeight + 5*tileMargin)/2)
+  .attr("font-size", 75)
+  .attr("alignment-baseline", "middle")
   .attr("text-anchor", "middle")
+  .attr("fill", "red")
+  .text("Game Over!");
 
 init(board);
 
@@ -67,6 +83,9 @@ function init(board)
 {
   var score = 0;
   updateScore();
+
+  endGame.attr("opacity", 0)
+  endGameText.attr("opacity", 0)
 
   var locations = generateRandomNumbers(2, 0, 15);
 
@@ -175,25 +194,26 @@ function up()
   {
     for(var j = 1; j < rows; j++)
     {
-      var k=j;
-      while(k > 0)
+      var k=0;
+      while(k < j)
       {
-        if(board[j-k][i] == 0 && board[j][i] != 0)
+        if(board[(j-k)-1][i] == 0 && board[j-k][i] != 0)
         {
-          board[j-k][i] = board[j][i];
-          board[j][i] = 0;
+          board[(j-k)-1][i] = board[j-k][i];
+          joined[(j-k)-1][i] = joined[j-k][i];
+          board[j-k][i] = 0;
           numMoved++
         }
 
-        if(board[j-k][i] == board[j][i] && !joined[j-k][i] && board[j][i] !=0)
+        if(board[(j-k)-1][i] == board[j-k][i] && !joined[(j-k)-1][i] && !joined[(j-k)][i] && board[j-k][i] !=0)
         {
-          board[j-k][i] = 2*board[j][i];
-          score += 2*board[j][i];
-          board[j][i] = 0;
-          joined[j-k][i] = 1;
+          board[(j-k)-1][i] = 2*board[j-k][i];
+          score += 2*board[j-k][i];
+          board[j-k][i] = 0;
+          joined[(j-k)-1][i] = 1;
           numMoved++;
         }
-        k--;
+        k++;
       }
     }
   }
@@ -202,8 +222,6 @@ function up()
   {
     spawnNewTile();
   }
-
-  print2DArray(board);
 }
 
 function down()
@@ -221,11 +239,12 @@ function down()
         if(board[j+k+1][i] == 0 && board[j + k][i] != 0)
         {
           board[j+k+1][i] = board[j + k][i];
+          joined[j+k+1][i] = joined[j + k][i];
           board[j+k][i] = 0;
           numMoved++
         }
 
-        if(board[j+k+1][i] == board[j+k][i] && !joined[j+k+1][i] && board[j+k][i] !=0)
+        if(board[j+k+1][i] == board[j+k][i] && !joined[j+k+1][i] && !joined[j+k][i] && board[j+k][i] !=0)
         {
           board[j+k+1][i] = board[j+k][i]+board[j+k+1][i];
           score += 2*board[j+k][i];
@@ -242,8 +261,6 @@ function down()
   {
     spawnNewTile();
   }
-
-  print2DArray(board);
 }
 
 function left()
@@ -255,25 +272,27 @@ function left()
   {
     for(var j = 1; j < rows; j++)
     {
-      var k=j;
-      while(k > 0)
+      var k=0;
+      while(k < j)
       {
-        if(board[i][j-k] == 0 && board[i][j] != 0)
+
+        if(board[i][(j-k)-1] == 0 && board[i][j-k] != 0)
         {
-          board[i][j-k] = board[i][j];
-          board[i][j] = 0;
+          board[i][(j-k)-1] = board[i][j-k];
+          joined[i][(j-k)-1] = joined[i][j-k];
+          board[i][j-k] = 0;
           numMoved++
         }
 
-        if(board[i][j-k] == board[i][j] && !joined[i][j-k] && board[i][j] !=0)
+        if(board[i][(j-k)-1] == board[i][j-k] && !joined[i][(j-k)-1] && !joined[i][(j-k)] && board[i][j-k] !=0)
         {
-          board[i][j-k] = 2*board[i][j];
-          score += 2*board[i][j];
-          board[i][j] = 0;
-          joined[i][j-k] = 1;
+          board[i][(j-k)-1] = 2*board[i][j-k];
+          score += 2*board[i][j-k];
+          board[i][j-k] = 0;
+          joined[i][(j-k)-1] = 1;
           numMoved++;
         }
-        k--;
+        k++;
       }
     }
   }
@@ -282,8 +301,6 @@ function left()
   {
     spawnNewTile();
   }
-
-  print2DArray(board);
 }
 
 function right()
@@ -301,11 +318,12 @@ function right()
         if(board[i][j+k+1] == 0 && board[i][j + k] != 0)
         {
           board[i][j+k+1] = board[i][j + k];
+          joined[i][j+k+1] = joined[i][j + k];
           board[i][j+k] = 0;
           numMoved++
         }
 
-        if(board[i][j+k+1] == board[i][j+k] && !joined[i][j+k+1] && board[i][j+k] !=0)
+        if(board[i][j+k+1] == board[i][j+k] && !joined[i][j+k+1] && !joined[i][j+k] && board[i][j+k] !=0)
         {
           board[i][j+k+1] = board[i][j+k]+board[i][j+k+1];
           score += 2*board[i][j+k];
@@ -322,8 +340,6 @@ function right()
   {
     spawnNewTile();
   }
-
-  print2DArray(board);
 }
 
 function newGame()
@@ -350,6 +366,7 @@ function spawnNewTile()
     }
   }
 
+  checkLoss();
 }
 
 function updateTiles()
@@ -381,4 +398,64 @@ function updateScore()
 {
   d3.select("#score")
     .text(score)
+}
+
+function checkLoss()
+{
+  for(var i = 0; i < rows; i++)
+  {
+    for(var j = 0; j < columns; j++)
+    {
+      if(board[i][j] == 0)
+      {
+        return;
+      }
+
+      if((i-1)>= 0)
+      {
+        if(board[i-1][j] == board[i][j])
+        {
+          return;
+        }
+      }
+
+      if((j-1) >= 0)
+      {
+        if(board[i][j-1] == board[i][j])
+        {
+          return;
+        }
+      }
+
+      if((i+1) < rows)
+      {
+        if(board[i+1][j] == board[i][j])
+        {
+          return;
+        }
+      }
+
+      if((j+1) < columns)
+      {
+        if(board[i][j+1] == board[i][j])
+        {
+          return;
+        }
+      }
+    }
+  }
+
+  gameLost();
+}
+
+function gameLost()
+{
+  endGame.transition()
+    .attr("opacity", 0.9)
+    .duration(700)
+
+  endGameText.transition()
+    .attr("opacity", 1)
+    .delay(700)
+    .duration(500);
 }

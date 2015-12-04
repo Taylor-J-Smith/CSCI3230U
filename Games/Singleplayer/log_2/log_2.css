@@ -8,6 +8,15 @@ h1 {
 
 div {
   display: inline-block;
+  font-family: sans-serif;
+}
+
+p {
+  font-family: sans-serif;
+}
+
+text {
+  font-family: sans-serif;
 }
 
 #header, #pre-game, #game, #post-game{
@@ -40,10 +49,12 @@ div {
 }
 
 #new-game {
+  display: inline-block;
   float: right;
   border-radius: 5px;
-  background: #654321;
-  margin: 1em 0px;
+  background: #6699ff;
+  margin: 6px 0px;
+  padding: 10px 5px;
   cursor: pointer;
 }
 
@@ -124,19 +135,19 @@ div {
 }
 
 .N256 rect {
-  fill:  #666666;
+  fill:  #595959;
 }
 
 .N512 rect {
-  fill: #595959;
-}
-
-.N1024 rect {
   fill: #4d4d4d;
 }
 
-.N2048 rect {
+.N1024 rect {
   fill:  #404040;
+}
+
+.N2048 rect {
+   fill: #333333;
 }
 
 .N4096 rect, .N8192 rect, .N16384 rect, .N32768 rect, .N65536 rect {
