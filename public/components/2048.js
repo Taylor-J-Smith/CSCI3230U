@@ -1,5 +1,5 @@
 module.exports = {
-  template: '<h1>{{page}}</h1><button v-on:click="new">reset game</button> <div id="tfe"><div id = "header"><div id = "scores"> <div id = "current-score"> <p>Current:</p> <p id = "score">0</p> </div> <div id = "best-score"> <p>Best:</p> <p>0</p> </div> </div> </div> <div id = "pre-game"> <p id = "info">Combine like tiles to gain points!</p> <div id = "new-game" onclick="newGame()">NEW GAME</div> </div> <div id = "game"> <svg></svg> </div> <div id = "post-game"> <div id = "rules"> <p> How to play: Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge into one! </p> </div> <hr> <div id = "credits"> This game brought to you by: Time-Kill Games </div> </div> </div>',
+  template: '<h1>{{page}}</h1><button class="reset" v-on:click="new">reset game</button> <div id="tfe"><div id = "header"><div id = "scores"> <div id = "current-score"> <p>Current:</p> <p id = "score">0</p> </div> <div id = "best-score"> <p>Best:</p> <p>0</p> </div> </div> </div> <div id = "pre-game"> <p id = "info">Combine like tiles to gain points!</p> <div id = "new-game" onclick="newGame()">NEW GAME</div> </div> <div id = "game"> <svg></svg> </div> <div id = "post-game"> <div id = "rules"> <p> How to play: Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge into one! </p> </div> <hr> <div id = "credits"> This game brought to you by: Time-Kill Games </div> </div> </div>',
   replace: true,
   data: function () {
     return {
@@ -24,11 +24,11 @@ module.exports = {
     },
     new: function(){
       
-      
+      window.location.href = "/2048"
     }
   },
   ready: function(){
-    this.score(10000)
+    this.score(1337)
     const UP = 38;
     const DOWN = 40;
     const LEFT = 37 ;

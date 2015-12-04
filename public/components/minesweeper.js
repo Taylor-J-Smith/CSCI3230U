@@ -1,7 +1,7 @@
 var state = 0;
 
 module.exports = {
-  template: '<h1>{{page}}</h1><button v-on:click="new">reset game</button><div id="game" v-on:click="game"><div>',
+  template: '<h1>{{page}}</h1><button class="reset" v-on:click="new">reset game</button><div id="game" v-on:click="game"><div>',
   replace: true,
   data: function () {
     return {
