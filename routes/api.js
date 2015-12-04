@@ -109,7 +109,7 @@ app.post('/api/score',isLoggedIn, function(req, res) {
  User.findOne({_id:req.decoded._id}, function(err, user) {
  if (user) {
     console.log("twentyfourtyeight update: "+user.local.name+" "+user.local.score)
-    user.local.score = 100;
+    user.local.score = req.body.score;
     user.save();
     res.json({ success: true});
    } else {

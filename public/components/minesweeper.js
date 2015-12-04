@@ -1,5 +1,7 @@
+var state = 0;
+
 module.exports = {
-  template: '<h1>{{page}}</h1><button v-on:click="new">reset game</button><div id="game"><div>',
+  template: '<h1>{{page}}</h1><button v-on:click="new">reset game</button><div id="game" v-on:click="game"><div>',
   replace: true,
   data: function () {
     return {
@@ -29,18 +31,27 @@ module.exports = {
         })
       }
     },
+    game: function(){
+      if(state == 1){
+        this.win()
+        console.log("win")
+      }
+      if(state == 2){
+        this.loss()
+        console.log("loss")
+      }
+      state = 0
+    },
     new: function(){
       window.location.href = "/minesweeper"
       
     }
   },
   ready: function(){
-    
-    //newGame()
-    this.loss()
-    this.win()
-    const MINE = "x";
+    state = 0;
 
+    //newGame()
+    const MINE = "x";
     var height = 410;
     var width = 410;
 
@@ -339,6 +350,7 @@ module.exports = {
     function endGame()
     {
       console.error("Game Over");
+      state = 2
 
       for(var i = 0; i < rows; i++)
       {
@@ -376,6 +388,8 @@ module.exports = {
     if(count == rows*columns - nMines)
     {
       console.log("Winner!");
+      //this.win()
+      state = 1
 
       for(var i = 0; i < rows; i++)
       {
