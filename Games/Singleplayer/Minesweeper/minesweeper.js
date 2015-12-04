@@ -1,9 +1,10 @@
-const MINE = "x";
+const MINE = "\u2620";
 
 const DEFAULT_TILE_COLOUR = "#999999";
 const SHADED_TILE_COLOUR = "#666666";
 const FLAGGED_COLOUR = "firebrick";
-const BORDER_COLOUR = "black";
+const BORDER_COLOUR = "#333333";
+const MINE_CLICKED_COLOUR = "red";
 
 var marginLeft = 10;
 var marginTop = 10;
@@ -207,7 +208,7 @@ function onClick(array,i,j)
     {
       d3.select("#G" + i + "-" + j)
         .select("text")
-        .attr("fill", "red")
+        .attr("fill", MINE_CLICKED_COLOUR)
         .text(array[i][j]);
 
       gameLost();
@@ -254,7 +255,6 @@ function zeroClick(array,i,j)
     {
       if(array[i-1][j+1] != MINE && !clicked[i-1][j+1])
       {
-        //console.log("Calling onclick: i: " + i+1 + " j: " + j+1);
         onClick(array, i-1, j+1);
       }
     }
@@ -263,7 +263,6 @@ function zeroClick(array,i,j)
     {
       if(array[i][j-1] != MINE&& !clicked[i][j-1])
       {
-        //console.log("Calling onclick: i: " + i + " j: " + j-1);
         onClick(array,i,j-1);
       }
     }
@@ -300,7 +299,6 @@ function zeroClick(array,i,j)
       }
     }
 }
-
 
 function checkWin()
 {
@@ -348,15 +346,9 @@ function onRightClick(array,i,j)
 
 function newGame()
 {
-  for(var i = 0; i < rows; i++)
-  {
-    for(var j = 0; j < columns; j++)
-    {
-      clicked[i][j] = 0;
-      flagged[i][j] = 0;
-      board[i][j] = 0;
-    }
-  }
+  set2DArray(board,0);
+  set2DArray(clicked, 0);
+  set2DArray(flagged, 0);
 
   rects
     .attr("fill", DEFAULT_TILE_COLOUR)
@@ -366,7 +358,6 @@ function newGame()
 
   board = initializeBoard(board, nMines);
 }
-
 
 function gameWon()
 {
@@ -387,22 +378,44 @@ function gameWon()
     }
   }
 
-  d3.text("/api/msLoss")
-    .header("Content-type", "application/json")
-    .post(JSON.stringify("sampleSessionToken"), function(error, text) { console.log(text); });
+  // do ajax request
+  // d3.text("/api/msLoss")
+  //   .header("Content-type", "application/json")
+  //   .post(JSON.stringify("sampleSessionToken"), function(error, text) { console.log(text); });
 }
 
 function gameLost()
 {
   console.error("Game Over");
 
+  set2DArray(clicked, 1);
+  showAllMines(board);
+
+  // do ajax request
+  // d3.text("/api/msLoss")
+  //   .header("Content-type", "application/json")
+  //   .post(JSON.stringify("sampleSessionToken"), function(error, text) { console.log(text); });
+
+}
+
+function set2DArray(array, value)
+{
+  for(var i = 0; i < array.length; i++)
+  {
+    for(var j = 0; j < array[0].length; j++)
+    {
+      array[i][j] = value;
+    }
+  }
+}
+
+function showAllMines(array)
+{
   for(var i = 0; i < rows; i++)
   {
     for(var j = 0; j < columns; j++)
     {
-      clicked[i][j] = 1;
-
-      if(board[i][j] == MINE)
+      if(array[i][j] == MINE)
       {
         d3.select("#G" + i + "-" + j)
           .select("text")
@@ -410,9 +423,4 @@ function gameLost()
       }
     }
   }
-
-  d3.text("/api/msLoss")
-    .header("Content-type", "application/json")
-    .post(JSON.stringify("sampleSessionToken"), function(error, text) { console.log(text); });
-
 }

@@ -4,7 +4,6 @@
   	<title>log_2</title>
     <link rel="stylesheet" type="text/css" href="log_2.css">
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="log_2.js" charset="utf-8"></script>
   </head>
   <body>
     <div id = "header">
@@ -12,7 +11,7 @@
       <div id = "scores">
         <div id = "current-score">
           <p>Current:</p>
-          <p>0</p>
+          <p id = "score">0</p>
         </div>
         <div id = "best-score">
           <p>Best:</p>
@@ -22,37 +21,10 @@
     </div>
     <div id = "pre-game">
       <p id = "info">Combine like tiles to gain points!</p>
-      <div id = "new-game">NEW GAME</div>
+      <div id = "new-game" onclick="newGame()">NEW GAME</div>
     </div>
     <div id = "game">
-      <div id = "grid">
-        <div class = "row">
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-        </div>
-        <div class = "row">
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-        </div>
-        <div class = "row">
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-        </div>
-        <div class = "row">
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-          <div class = "background-tile"></div>
-        </div>
-      </div>
-      <div id = "tiles"></div>
-      <div id = "ingame-messages"></div>
+      <svg></svg>
     </div>
     <div id = "post-game">
       <div id = "rules">
@@ -65,5 +37,6 @@
         This game brought to you by: Time-Kill Games
       </div>
     </div>
+    <script src="log_2.js" charset="utf-8"></script>
   </body>
 </html>
