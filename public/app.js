@@ -18,6 +18,7 @@ var App = Vue.extend({
       usr: 'default',
       msW: '0',
       msL:  '0',
+      tfe: '0',
       email: '',
       password: '', // TODO: storing plaintext password is a bad idea
     }
@@ -38,6 +39,7 @@ var App = Vue.extend({
           this.email = data.message.local.email
           this.msW = data.message.local.msW
           this.msL = data.message.local.msL
+          this.tfe = data.message.local.score
           console.log(data)
       }).error(function (data, status, request) {
           // handle error
@@ -106,6 +108,9 @@ router.map({
     },
     '/minesweeper': {
         component: require('./components/minesweeper.js')
+    },
+    '/2048': {
+        component: require('./components/2048.js')
     },
     '*': {
         component: require('./components/404.js')

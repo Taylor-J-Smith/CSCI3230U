@@ -16,7 +16,7 @@
 		    <router-view></router-view>
 		    </div>
 		  </div>
-		  <div id="footer" v-on:keydown.up="togglefooter">
+		  <div id="footer">
 		  <div class="wrap">
 		  	<div id="login">
 			  <form>
@@ -40,6 +40,7 @@
 			    <a v-link="{ path: '/' }" v-on:click="collapse">Home</a>
 			    <a v-link="{ path: '/about' }" v-on:click="collapse">About</a>
 			    <a v-link="{ path: '/minesweeper' }" v-on:click="collapse">Minesweeper</a>
+			    <a v-link="{ path: '/2048' }" v-on:click="collapse">2048</a>
 			    <button v-on:click="togglefooter" v-on:click="collapse">{{status}}</button>
 			    </div>
 		    </div>
