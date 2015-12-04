@@ -8,22 +8,26 @@ module.exports = {
   },
   methods:{
     loss: function(){
-      Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
-      this.$http.post('/api/msloss', function (data, status, request) {
+      if(window.localStorage['LOCAL_TOKEN_KEY'] != null){
+        Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+        this.$http.post('/api/msloss', function (data, status, request) {
 
-      }).error(function (data, status, request) {
-          // handle error
-          console.log("error")
-      })
+        }).error(function (data, status, request) {
+            // handle error
+            console.log("error")
+        })
+      }
     },
     win: function(){
-      Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
-      this.$http.post('/api/mswin', function (data, status, request) {
+      if(window.localStorage['LOCAL_TOKEN_KEY'] != null){
+        Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+        this.$http.post('/api/mswin', function (data, status, request) {
 
-      }).error(function (data, status, request) {
-          // handle error
-          console.log("error")
-      })
+        }).error(function (data, status, request) {
+            // handle error
+            console.log("error")
+        })
+      }
     }
   },
   ready: function(){
