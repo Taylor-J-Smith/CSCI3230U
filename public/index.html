@@ -27,7 +27,8 @@
 			  don't have an account? <a v-link="{ path: '/signup'}" v-on:click="collapse">sign up</a>
 			</div>
 			<div id="controls" class="hidden">
-				{{usr}}<br>
+				<h1>hey there, {{usr}}!</h1><b class="gray">here are your high scores</b><br>
+				<h3>minesweeper: <span class="hl">{{msW}} / {{msL}}</span></h3>
 				<button v-on:click="logout">log out</button>
 			</div>
 		  </div>
