@@ -238,7 +238,16 @@ button:hover{
 ///////////////////////////////////////////
 #tfe {
 	div {
-		display:inline-block;
+	  display: inline-block;
+	  font-family: sans-serif;
+	}
+
+	p {
+	  font-family: sans-serif;
+	}
+
+	text {
+	  font-family: sans-serif;
 	}
 	#header, #pre-game, #game, #post-game{
 	  width: 454px;
