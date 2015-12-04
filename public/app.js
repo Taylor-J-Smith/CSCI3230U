@@ -15,6 +15,8 @@ var App = Vue.extend({
       auth: false,
       status: 'log in',
       usr: 'default',
+      msW: '0',
+      msL:  '0',
       email: '',
       password: '', // TODO: storing plaintext password is a bad idea
     }
@@ -28,10 +30,14 @@ var App = Vue.extend({
       d3.select("#controls").classed("hidden", false)
       this.status = 'account'
       console.log(window.localStorage['LOCAL_ID'])
-      this.$http.get('/api/user', this.id, function (data, status, request) {
+      Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+      this.$http.post('/api/user', function (data, status, request) {
 
-          // set data on vm
-          //this.$set('someData', data)
+          // load data into view bindings
+          this.usr = data.message.local.name
+          this.email = data.message.local.email
+          this.msW = data.message.local.msW
+          this.msL = data.message.local.msL
           console.log(data)
       }).error(function (data, status, request) {
           // handle error

@@ -9,6 +9,7 @@ red: ff5454
 $light-gray: #e8e8e8;
 $dark-gray: #313131;
 $base-width: 1020px;
+$highlight: #FFF667;
 $small-width: 430px;
 
 .expand-transition {
@@ -58,6 +59,12 @@ body {
 }
 h1, h2, h3, h4, h5 {
 	letter-spacing:1px;
+}
+.gray {
+	color:$light-gray;
+}
+span.hl{
+	color:$highlight;
 }
 .shadow {
 	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.3);

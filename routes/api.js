@@ -39,7 +39,7 @@ module.exports = function(app, express) {
       if (user){
       if (user.validPassword(req.body.password)) {
         console.log(user.local);
-        var token = jwt.sign({ _id: user._id,email:user.local.email}, app.get('superSecret'), {expiresIn: 300});
+        var token = jwt.sign({ _id: user._id,email:user.local.email}, app.get('superSecret'), {expiresIn: 15000});
         user.local.token = token;
         user.save();
         res.json({
@@ -82,9 +82,25 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-   app.get('/api/user', function(req, res) {
- User.findOne({_id:req}, function(err, user) {
-res.json({ success: true, message: user});
+   app.post('/api/user/', isLoggedIn, function(req, res) {
+    console.log(req.decoded)
+    User.findOne({_id:req.decoded._id},{'local.password':0}, function(err, user) {
+    res.json({ success: true, message: user});
+    });
+  });
+
+app.post('/api/chname/',isLoggedIn, function(req, res) {
+ User.findOne({_id:req.decoded._id}, function(err, user) {
+ if (user) //might need to make this != null/undefined etc if fails
+ {
+user.name = req.body.newname;
+user.save();
+res.json({ success: true});
+ }
+else
+{
+res.json({ success: false});
+}
  });
   });
 
