@@ -13,9 +13,18 @@ module.exports = {
   methods: {
     signup: function(event){
       event.preventDefault()
-      var data = JSON.stringify({name: this.name, email: this.email, password: this.password})
-      alert("posted:"+data);
-      this.$http.post('/api/signup', data); //no feedback on this
+      var pwd = document.getElementById('pwd').value
+      var data = JSON.stringify({name: this.name, email: this.email, password: pwd})
+      this.$http.post('/api/signup', data, function (data, status, request){
+        if(data.success){
+          console.log("account created")
+          window.localStorage['LOCAL_TOKEN_KEY'] = data.token;
+          window.localStorage['LOCAL_ID'] = data.id;
+          window.location.href = "/"
+        } else {
+          console.log("signup failed")
+        }
+      })
     }
   }
 }
