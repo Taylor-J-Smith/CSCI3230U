@@ -350,6 +350,36 @@ function newGame()
 
 function spawnNewTile()
 {
+
+  var count = 0;
+
+  for(var i = 0; i < rows ; i++)
+  {
+    for(var j = 0; j < columns; j++)
+    {
+      if(board[i][j] == 0)
+      {
+        count++;
+      }
+    }
+  }
+
+  if(count == 1)
+  {
+    for(var i = 0; i < rows ; i++)
+    {
+      for(var j = 0; j < columns; j++)
+      {
+        if(board[i][j] == 0)
+        {
+          board[i][j] = 2;
+          checkLoss();
+          return
+        }
+      }
+    }
+  }
+
   newTile = false;
 
   while(!newTile)
@@ -457,9 +487,10 @@ function gameLost()
   endGame.transition()
     .attr("opacity", 0.9)
     .duration(700)
+    .delay(500)
 
   endGameText.transition()
     .attr("opacity", 1)
-    .delay(700)
+    .delay(1200)
     .duration(500);
 }
