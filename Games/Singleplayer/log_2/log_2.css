@@ -44,6 +44,10 @@ text {
   text-align: center
 }
 
+#pre-game{
+  height: 50px;
+}
+
 #pre-game p {
   display: inline-block;
 }

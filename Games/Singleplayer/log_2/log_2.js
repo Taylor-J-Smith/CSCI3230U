@@ -7,14 +7,14 @@ const SVG_BACKGROUND_COLOUR = "#666666";
 const DEFAULT_CURVE = 15;
 const BACKGROUND_TILE_COLOUR = "#cccccc";
 
-var rows = 4;
-var columns = 4;
+var l_rows = 4;
+var l_columns = 4;
 
-var board = create2DArray(rows, columns);
-var joined = create2DArray(rows, columns);
+var l_board = create2DArray(l_rows, l_columns);
+var joined = create2DArray(l_rows, l_columns);
 
-var tileHeight = 100;
-var tileWidth = 100;
+var l_tileHeight = 100;
+var l_tileHeight = 100;
 
 var tileMargin = 10;
 
@@ -28,58 +28,58 @@ d3.select("body")
     })
 
 var svg = d3.select("svg")
-  .attr("height", 4*tileHeight + 5*tileMargin)
-  .attr("width", 4*tileWidth + 5*tileMargin);
+  .attr("height", 4*l_tileHeight + 5*tileMargin)
+  .attr("width", 4*l_tileHeight + 5*tileMargin);
 
 var bGround = svg.append("rect")
-  .attr("height", 4*tileHeight + 5*tileMargin)
-  .attr("width", 4*tileWidth + 5*tileMargin)
+  .attr("height", 4*l_tileHeight + 5*tileMargin)
+  .attr("width", 4*l_tileHeight + 5*tileMargin)
   .attr("rx", DEFAULT_CURVE)
   .attr("ry", DEFAULT_CURVE)
   .attr("fill", SVG_BACKGROUND_COLOUR);
 
 var bGroundGroups = svg.selectAll("g")
-  .data(board)
+  .data(l_board)
   .enter().append("g")
     .selectAll("g")
     .data(function(d){return d;})
       .enter().append("g")
-        .attr("transform", function(d,i,j) {return "translate(" + ((j+1)*tileMargin + j*tileWidth) + "," + ((i+1)*tileMargin + i*tileHeight) + ")";})
+        .attr("transform", function(d,i,j) {return "translate(" + ((j+1)*tileMargin + j*l_tileHeight) + "," + ((i+1)*tileMargin + i*l_tileHeight) + ")";})
         .attr("id", function(d,i,j){return "G" + j + "-" + i;})
 
 var bGroundTiles = bGroundGroups.append("rect")
-  .attr("height", tileHeight)
-  .attr("width", tileWidth)
+  .attr("height", l_tileHeight)
+  .attr("width", l_tileHeight)
   .attr("fill", BACKGROUND_TILE_COLOUR)
   .attr("rx", DEFAULT_CURVE)
   .attr("ry", DEFAULT_CURVE);
 
 var numbers = bGroundGroups.append("text")
-  .attr("x", tileWidth/2)
-  .attr("y", tileHeight/2)
+  .attr("x", l_tileHeight/2)
+  .attr("y", l_tileHeight/2)
   .attr("font-size", 50)
   .attr("alignment-baseline", "middle")
   .attr("text-anchor", "middle");
 
 var endGame = svg.append("rect")
-  .attr("height", 4*tileHeight + 5*tileMargin)
-  .attr("width", 4*tileWidth + 5*tileMargin)
+  .attr("height", 4*l_tileHeight + 5*tileMargin)
+  .attr("width", 4*l_tileHeight + 5*tileMargin)
   .attr("rx", DEFAULT_CURVE)
   .attr("ry", DEFAULT_CURVE)
   .attr("fill", "black");
 
 var endGameText = svg.append("text")
-  .attr("x", (4*tileWidth + 5*tileMargin)/2)
-  .attr("y", (4*tileHeight + 5*tileMargin)/2)
+  .attr("x", (4*l_tileHeight + 5*tileMargin)/2)
+  .attr("y", (4*l_tileHeight + 5*tileMargin)/2)
   .attr("font-size", 75)
   .attr("alignment-baseline", "middle")
   .attr("text-anchor", "middle")
   .attr("fill", "red")
   .text("Game Over!");
 
-init(board);
+init(l_board);
 
-function init(board)
+function init(l_board)
 {
   var score = 0;
   updateScore();
@@ -91,10 +91,10 @@ function init(board)
 
   for(var i = 0; i < locations.length; i++)
   {
-    var j = Math.floor(locations[i] / columns);
-    var k = locations[i] % columns;
+    var j = Math.floor(locations[i] / l_columns);
+    var k = locations[i] % l_columns;
 
-    board[j][k] = 2;
+    l_board[j][k] = 2;
   }
 
   updateTiles();
@@ -133,15 +133,15 @@ function print2DArray(array)
     }
 }
 
-function create2DArray(rows, columns)
+function create2DArray(l_rows, l_columns)
 {
   var Array2D = [];
 
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < l_rows; i++)
   {
-    Array2D[i] = new Array(columns);
+    Array2D[i] = new Array(l_columns);
 
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < l_columns; j++)
     {
       Array2D[i][j] = 0;
     }
@@ -190,26 +190,26 @@ function up()
   set2DArray(joined, 0);
   var numMoved = 0;
 
-  for(var i = 0; i < columns; i++)
+  for(var i = 0; i < l_columns; i++)
   {
-    for(var j = 1; j < rows; j++)
+    for(var j = 1; j < l_rows; j++)
     {
       var k=0;
       while(k < j)
       {
-        if(board[(j-k)-1][i] == 0 && board[j-k][i] != 0)
+        if(l_board[(j-k)-1][i] == 0 && l_board[j-k][i] != 0)
         {
-          board[(j-k)-1][i] = board[j-k][i];
+          l_board[(j-k)-1][i] = l_board[j-k][i];
           joined[(j-k)-1][i] = joined[j-k][i];
-          board[j-k][i] = 0;
+          l_board[j-k][i] = 0;
           numMoved++
         }
 
-        if(board[(j-k)-1][i] == board[j-k][i] && !joined[(j-k)-1][i] && !joined[(j-k)][i] && board[j-k][i] !=0)
+        if(l_board[(j-k)-1][i] == l_board[j-k][i] && !joined[(j-k)-1][i] && !joined[(j-k)][i] && l_board[j-k][i] !=0)
         {
-          board[(j-k)-1][i] = 2*board[j-k][i];
-          score += 2*board[j-k][i];
-          board[j-k][i] = 0;
+          l_board[(j-k)-1][i] = 2*l_board[j-k][i];
+          score += 2*l_board[j-k][i];
+          l_board[j-k][i] = 0;
           joined[(j-k)-1][i] = 1;
           numMoved++;
         }
@@ -229,26 +229,26 @@ function down()
   set2DArray(joined, 0);
   var numMoved = 0;
 
-  for(var i = 0; i < columns; i++)
+  for(var i = 0; i < l_columns; i++)
   {
-    for(var j = rows - 2; j >= 0; j--)
+    for(var j = l_rows - 2; j >= 0; j--)
     {
       var k=0;
-      while(j+k < rows-1)
+      while(j+k < l_rows-1)
       {
-        if(board[j+k+1][i] == 0 && board[j + k][i] != 0)
+        if(l_board[j+k+1][i] == 0 && l_board[j + k][i] != 0)
         {
-          board[j+k+1][i] = board[j + k][i];
+          l_board[j+k+1][i] = l_board[j + k][i];
           joined[j+k+1][i] = joined[j + k][i];
-          board[j+k][i] = 0;
+          l_board[j+k][i] = 0;
           numMoved++
         }
 
-        if(board[j+k+1][i] == board[j+k][i] && !joined[j+k+1][i] && !joined[j+k][i] && board[j+k][i] !=0)
+        if(l_board[j+k+1][i] == l_board[j+k][i] && !joined[j+k+1][i] && !joined[j+k][i] && l_board[j+k][i] !=0)
         {
-          board[j+k+1][i] = board[j+k][i]+board[j+k+1][i];
-          score += 2*board[j+k][i];
-          board[j+k][i] = 0;
+          l_board[j+k+1][i] = l_board[j+k][i]+l_board[j+k+1][i];
+          score += 2*l_board[j+k][i];
+          l_board[j+k][i] = 0;
           joined[j+k+1][i] = 1;
           numMoved++;
         }
@@ -268,27 +268,27 @@ function left()
   set2DArray(joined, 0);
   var numMoved = 0;
 
-  for(var i = 0; i < columns; i++)
+  for(var i = 0; i < l_columns; i++)
   {
-    for(var j = 1; j < rows; j++)
+    for(var j = 1; j < l_rows; j++)
     {
       var k=0;
       while(k < j)
       {
 
-        if(board[i][(j-k)-1] == 0 && board[i][j-k] != 0)
+        if(l_board[i][(j-k)-1] == 0 && l_board[i][j-k] != 0)
         {
-          board[i][(j-k)-1] = board[i][j-k];
+          l_board[i][(j-k)-1] = l_board[i][j-k];
           joined[i][(j-k)-1] = joined[i][j-k];
-          board[i][j-k] = 0;
+          l_board[i][j-k] = 0;
           numMoved++
         }
 
-        if(board[i][(j-k)-1] == board[i][j-k] && !joined[i][(j-k)-1] && !joined[i][(j-k)] && board[i][j-k] !=0)
+        if(l_board[i][(j-k)-1] == l_board[i][j-k] && !joined[i][(j-k)-1] && !joined[i][(j-k)] && l_board[i][j-k] !=0)
         {
-          board[i][(j-k)-1] = 2*board[i][j-k];
-          score += 2*board[i][j-k];
-          board[i][j-k] = 0;
+          l_board[i][(j-k)-1] = 2*l_board[i][j-k];
+          score += 2*l_board[i][j-k];
+          l_board[i][j-k] = 0;
           joined[i][(j-k)-1] = 1;
           numMoved++;
         }
@@ -308,26 +308,26 @@ function right()
   set2DArray(joined, 0);
   var numMoved = 0;
 
-  for(var i = 0; i < columns; i++)
+  for(var i = 0; i < l_columns; i++)
   {
-    for(var j = rows - 2; j >= 0; j--)
+    for(var j = l_rows - 2; j >= 0; j--)
     {
       var k=0;
-      while(j+k < rows-1)
+      while(j+k < l_rows-1)
       {
-        if(board[i][j+k+1] == 0 && board[i][j + k] != 0)
+        if(l_board[i][j+k+1] == 0 && l_board[i][j + k] != 0)
         {
-          board[i][j+k+1] = board[i][j + k];
+          l_board[i][j+k+1] = l_board[i][j + k];
           joined[i][j+k+1] = joined[i][j + k];
-          board[i][j+k] = 0;
+          l_board[i][j+k] = 0;
           numMoved++
         }
 
-        if(board[i][j+k+1] == board[i][j+k] && !joined[i][j+k+1] && !joined[i][j+k] && board[i][j+k] !=0)
+        if(l_board[i][j+k+1] == l_board[i][j+k] && !joined[i][j+k+1] && !joined[i][j+k] && l_board[i][j+k] !=0)
         {
-          board[i][j+k+1] = board[i][j+k]+board[i][j+k+1];
-          score += 2*board[i][j+k];
-          board[i][j+k] = 0;
+          l_board[i][j+k+1] = l_board[i][j+k]+l_board[i][j+k+1];
+          score += 2*l_board[i][j+k];
+          l_board[i][j+k] = 0;
           joined[i][j+k+1] = 1;
           numMoved++;
         }
@@ -344,8 +344,8 @@ function right()
 
 function newGame()
 {
-  set2DArray(board, 0);
-  init(board);
+  set2DArray(l_board, 0);
+  init(l_board);
 }
 
 function spawnNewTile()
@@ -353,11 +353,11 @@ function spawnNewTile()
 
   var count = 0;
 
-  for(var i = 0; i < rows ; i++)
+  for(var i = 0; i < l_rows ; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < l_columns; j++)
     {
-      if(board[i][j] == 0)
+      if(l_board[i][j] == 0)
       {
         count++;
       }
@@ -366,13 +366,13 @@ function spawnNewTile()
 
   if(count == 1)
   {
-    for(var i = 0; i < rows ; i++)
+    for(var i = 0; i < l_rows ; i++)
     {
-      for(var j = 0; j < columns; j++)
+      for(var j = 0; j < l_columns; j++)
       {
-        if(board[i][j] == 0)
+        if(l_board[i][j] == 0)
         {
-          board[i][j] = 2;
+          l_board[i][j] = 2;
           checkLoss();
           return
         }
@@ -386,12 +386,12 @@ function spawnNewTile()
   {
     var r = generateRandomNumbers(1,0,15);
 
-    var j = Math.floor(r / columns);
-    var k = r % columns;
+    var j = Math.floor(r / l_columns);
+    var k = r % l_columns;
 
-    if(board[j][k] == 0)
+    if(l_board[j][k] == 0)
     {
-      board[j][k] = 2;
+      l_board[j][k] = 2;
       newTile = true;
     }
   }
@@ -401,16 +401,16 @@ function spawnNewTile()
 
 function updateTiles()
 {
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < l_rows; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < l_columns; j++)
     {
-      if(board[i][j] != 0)
+      if(l_board[i][j] != 0)
       {
         d3.select("#G" + j + "-" + i)
-          .attr("class", "N" + board[i][j])
+          .attr("class", "N" + l_board[i][j])
           .select("text")
-          .text(board[i][j])
+          .text(l_board[i][j])
       }
       else
       {
@@ -428,26 +428,22 @@ function updateScore()
 {
   d3.select("#score")
     .text(score)
-
-    if(d3.select("#bscore").text() < score)
-      d3.select("#bscore")
-        .text(score)
 }
 
 function checkLoss()
 {
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < l_rows; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < l_columns; j++)
     {
-      if(board[i][j] == 0)
+      if(l_board[i][j] == 0)
       {
         return;
       }
 
       if((i-1)>= 0)
       {
-        if(board[i-1][j] == board[i][j])
+        if(l_board[i-1][j] == l_board[i][j])
         {
           return;
         }
@@ -455,23 +451,23 @@ function checkLoss()
 
       if((j-1) >= 0)
       {
-        if(board[i][j-1] == board[i][j])
+        if(l_board[i][j-1] == l_board[i][j])
         {
           return;
         }
       }
 
-      if((i+1) < rows)
+      if((i+1) < l_rows)
       {
-        if(board[i+1][j] == board[i][j])
+        if(l_board[i+1][j] == l_board[i][j])
         {
           return;
         }
       }
 
-      if((j+1) < columns)
+      if((j+1) < l_columns)
       {
-        if(board[i][j+1] == board[i][j])
+        if(l_board[i][j+1] == l_board[i][j])
         {
           return;
         }

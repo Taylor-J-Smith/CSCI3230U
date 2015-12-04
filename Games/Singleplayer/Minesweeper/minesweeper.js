@@ -9,20 +9,20 @@ const MINE_CLICKED_COLOUR = "red";
 var marginLeft = 10;
 var marginTop = 10;
 
-var rows = 10;
-var columns = 10;
+var m_rows = 10;
+var m_columns = 10;
 
 var nMines = 16;
 
-var tileHeight = 39;
-var tileWidth = 39;
+var m_tileHeight = 39;
+var m_tileHeight = 39;
 
-var height = tileHeight*rows + 2*marginTop;
-var width = tileWidth*columns + 2*marginLeft;
+var height = m_tileHeight*m_rows + 2*marginTop;
+var width = m_tileHeight*m_columns + 2*marginLeft;
 
-var board = initializeBoard(create2DArray(rows, columns), nMines);
-var clicked = create2DArray(rows,columns);
-var flagged = create2DArray(rows,columns);
+var m_board = initializem_board(create2DArray(m_rows, m_columns), nMines);
+var clicked = create2DArray(m_rows,m_columns);
+var flagged = create2DArray(m_rows,m_columns);
 
 var svg = d3.select("body")
   .append("svg")
@@ -31,7 +31,7 @@ var svg = d3.select("body")
   .on("contextmenu", function() {d3.event.preventDefault()})
 
 var groups = svg.selectAll("g")
-  .data(board)
+  .data(m_board)
   .enter().append("g")
     .selectAll("g")
     .data(function(d){return d})
@@ -39,33 +39,33 @@ var groups = svg.selectAll("g")
       .attr("id", function(d,i,j){return "G" + j + "-" + i;})
 
 var rects = groups.append("rect")
-  .attr("height", tileHeight)
-  .attr("width", tileWidth)
-  .attr("x", function(d,i,j){return i*tileWidth + marginLeft})
-  .attr("y", function(d,i,j){return j*tileHeight + marginTop})
+  .attr("height", m_tileHeight)
+  .attr("width", m_tileHeight)
+  .attr("x", function(d,i,j){return i*m_tileHeight + marginLeft})
+  .attr("y", function(d,i,j){return j*m_tileHeight + marginTop})
   .attr("fill", DEFAULT_TILE_COLOUR)
   .attr("stroke", BORDER_COLOUR)
   .attr("stroke-width", 1)
-  .on("click", function(d,i,j){onClick(board,j,i)})
-  .on("contextmenu", function(d,i,j){onRightClick(board,j,i)})
+  .on("click", function(d,i,j){onClick(m_board,j,i)})
+  .on("contextmenu", function(d,i,j){onRightClick(m_board,j,i)})
 
 var text = groups.append("text")
-  .attr("x", function(d,i,j){return i*tileWidth + marginLeft + 20})
-  .attr("y", function(d,i,j){return j*tileHeight + marginTop + 20})
+  .attr("x", function(d,i,j){return i*m_tileHeight + marginLeft + 20})
+  .attr("y", function(d,i,j){return j*m_tileHeight + marginTop + 20})
   .attr("alignment-baseline", "middle")
   .attr("text-anchor", "middle")
-  .attr("font-size", tileWidth/2)
+  .attr("font-size", m_tileHeight/2)
   .style("pointer-events", "none")
 
-function create2DArray(rows, columns)
+function create2DArray(m_rows, m_columns)
 {
   var Array2D = [];
 
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < m_rows; i++)
   {
-    Array2D[i] = new Array(columns);
+    Array2D[i] = new Array(m_columns);
 
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < m_columns; j++)
     {
       Array2D[i][j] = 0;
     }
@@ -74,19 +74,19 @@ function create2DArray(rows, columns)
   return Array2D;
 }
 
-function initializeBoard(array, numMines)
+function initializem_board(array, numMines)
 {
-  var rows = array.length;
-  var columns = array[0].length;
+  var m_rows = array.length;
+  var m_columns = array[0].length;
 
-  var numSpaces = rows*columns;
+  var numSpaces = m_rows*m_columns;
 
   var mines = generateRandomNumbers(numMines, 0, numSpaces);
 
   for(var i = 0; i < mines.length; i++)
   {
-    var j = Math.floor(mines[i] / columns);
-    var k = mines[i] % columns;
+    var j = Math.floor(mines[i] / m_columns);
+    var k = mines[i] % m_columns;
 
     array[j][k] = MINE;
   }
@@ -131,12 +131,12 @@ function print2DArray(array)
 
 function setNumbers(array)
 {
-  var rows = array.length;
-  var columns = array[0].length;
+  var m_rows = array.length;
+  var m_columns = array[0].length;
 
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < m_rows; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < m_columns; j++)
     {
       count = 0;
 
@@ -154,7 +154,7 @@ function setNumbers(array)
             count++;
         }
 
-        if(i-1 >= 0 && j+1 <= columns - 1)
+        if(i-1 >= 0 && j+1 <= m_columns - 1)
         {
           if(array[i-1][j+1] == MINE)
             count++;
@@ -166,25 +166,25 @@ function setNumbers(array)
             count++;
         }
 
-        if(j+1 <= columns -1)
+        if(j+1 <= m_columns -1)
         {
           if(array[i][j+1] == MINE)
             count++;
         }
 
-        if(i+1 <= rows-1 && j-1 >=0)
+        if(i+1 <= m_rows-1 && j-1 >=0)
         {
           if(array[i+1][j-1] == MINE)
             count++;
         }
 
-        if(i+1 <= rows-1)
+        if(i+1 <= m_rows-1)
         {
           if(array[i+1][j] == MINE)
             count++;
         }
 
-        if(i+1 <= rows-1 && j+1 <= columns-1)
+        if(i+1 <= m_rows-1 && j+1 <= m_columns-1)
         {
           if(array[i+1][j+1] == MINE)
             count++;
@@ -251,7 +251,7 @@ function zeroClick(array,i,j)
       }
     }
 
-    if(i-1 >= 0 && j+1 <= columns - 1)
+    if(i-1 >= 0 && j+1 <= m_columns - 1)
     {
       if(array[i-1][j+1] != MINE && !clicked[i-1][j+1])
       {
@@ -267,7 +267,7 @@ function zeroClick(array,i,j)
       }
     }
 
-    if(j+1 <= columns -1)
+    if(j+1 <= m_columns -1)
     {
       if(array[i][j+1] != MINE && !clicked[i][j+1])
       {
@@ -275,7 +275,7 @@ function zeroClick(array,i,j)
       }
     }
 
-    if(i+1 <= rows-1 && j-1 >=0)
+    if(i+1 <= m_rows-1 && j-1 >=0)
     {
       if(array[i+1][j-1] != MINE && !clicked[i+1][j-1])
       {
@@ -283,7 +283,7 @@ function zeroClick(array,i,j)
       }
     }
 
-    if(i+1 <= rows-1)
+    if(i+1 <= m_rows-1)
     {
       if(array[i+1][j] != MINE && !clicked[i+1][j])
       {
@@ -291,7 +291,7 @@ function zeroClick(array,i,j)
       }
     }
 
-    if(i+1 <= rows-1 && j+1 <= columns-1)
+    if(i+1 <= m_rows-1 && j+1 <= m_columns-1)
     {
       if(array[i+1][j+1] != MINE && !clicked[i+1][j+1])
       {
@@ -304,18 +304,18 @@ function checkWin()
 {
   var count = 0;
 
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < m_rows; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < m_columns; j++)
     {
-      if(clicked[i][j] == 1 && board[i][j] != MINE)
+      if(clicked[i][j] == 1 && m_board[i][j] != MINE)
       {
         count++;
       }
     }
   }
 
-  if(count == rows*columns - nMines)
+  if(count == m_rows*m_columns - nMines)
   {
     gameWon();
   }
@@ -346,7 +346,7 @@ function onRightClick(array,i,j)
 
 function newGame()
 {
-  set2DArray(board,0);
+  set2DArray(m_board,0);
   set2DArray(clicked, 0);
   set2DArray(flagged, 0);
 
@@ -356,20 +356,20 @@ function newGame()
   text
     .text("")
 
-  board = initializeBoard(board, nMines);
+  m_board = initializem_board(m_board, nMines);
 }
 
 function gameWon()
 {
   console.log("Winner!");
 
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < m_rows; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < m_columns; j++)
     {
       clicked[i][j] = 1;
 
-      if(board[i][j] == MINE)
+      if(m_board[i][j] == MINE)
       {
         d3.select("#G" + i + "-" + j)
           .select("text")
@@ -389,7 +389,7 @@ function gameLost()
   console.error("Game Over");
 
   set2DArray(clicked, 1);
-  showAllMines(board);
+  showAllMines(m_board);
 
   // do ajax request
   // d3.text("/api/msLoss")
@@ -411,9 +411,9 @@ function set2DArray(array, value)
 
 function showAllMines(array)
 {
-  for(var i = 0; i < rows; i++)
+  for(var i = 0; i < m_rows; i++)
   {
-    for(var j = 0; j < columns; j++)
+    for(var j = 0; j < m_columns; j++)
     {
       if(array[i][j] == MINE)
       {
