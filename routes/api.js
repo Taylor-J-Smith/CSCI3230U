@@ -22,16 +22,6 @@ module.exports = function(app, express) {
     });
   });
 
-  app.post('/api/msWin', function(req, res){
-    //update row in table indicating a minesweeper win.
-    res.send("msWin responding")
-  })
-
-  app.post('/api/msLoss', function(req, res){
-    //update row in table indicating a minesweeper loss.
-    res.send("msLoss responding")
-  })
-
   app.post('/api/login', function(req, res) {
     User.findOne({
       'local.email': req.body.email
@@ -89,20 +79,44 @@ function isLoggedIn(req, res, next) {
     });
   });
 
-app.post('/api/chname/',isLoggedIn, function(req, res) {
+app.post('/api/msloss',isLoggedIn, function(req, res) {
  User.findOne({_id:req.decoded._id}, function(err, user) {
- if (user) //might need to make this != null/undefined etc if fails
- {
-user.name = req.body.newname;
-user.save();
-res.json({ success: true});
- }
-else
-{
-res.json({ success: false});
-}
- });
+ if (user) {
+    console.log("minesweeper win: "+user.local.name)
+    user.local.msL = user.local.msL + 1
+    user.save();
+    res.json({ success: true});
+   } else {
+    res.json({ success: false});
+    }
   });
+});
+
+app.post('/api/mswin',isLoggedIn, function(req, res) {
+ User.findOne({_id:req.decoded._id}, function(err, user) {
+ if (user) {
+    console.log("minesweeper loss: "+user.local.name)
+    user.local.msW = user.local.msW + 1
+    user.save();
+    res.json({ success: true});
+   } else {
+    res.json({ success: false});
+    }
+  });
+});
+
+app.post('/api/score',isLoggedIn, function(req, res) {
+ User.findOne({_id:req.decoded._id}, function(err, user) {
+ if (user) {
+    console.log("twentyfourtyeight update: "+user.local.name+" "+user.local.score)
+    user.local.score = 100;
+    user.save();
+    res.json({ success: true});
+   } else {
+    res.json({ success: false});
+    }
+  });
+});
 
 app.get('/api/*', function(req, res) {
     res.status(404).send({

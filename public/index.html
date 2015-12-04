@@ -21,14 +21,16 @@
 			  <form>
 			  log in to track your high scores!<br>
 			  	<input type="text" v-model="email" placeholder="email" autofocus><br>
-			  	<input type="password" v-model="password" placeholder="password"><br>
+			  	<input type="password" id="pwd" placeholder="password"><br>
 			  	<button v-on:click="login($event)">log in</button>
 			  </form><br>
-			  don't have an account? <a v-link="{ path: '/signup'}" v-on:click="collapse">sign up</a>
+			  don't have an account? <a v-link="{ path: '/signup'}" v-on:click="collapse">sign up</a><br>
+			  <span class="warn">{{loginmsg}}</span>
 			</div>
 			<div id="controls" class="hidden">
 				<h1>hey there, {{usr}}!</h1><b class="gray">here are your high scores</b><br>
 				<h3>minesweeper: <span class="hl">{{msW}} / {{msL}}</span></h3>
+				<h3>twentyfourtyeight: <span class="hl">{{tfe}}</span></h3>
 				<button v-on:click="logout">log out</button>
 			</div>
 		  </div>

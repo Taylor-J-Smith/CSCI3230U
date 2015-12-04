@@ -14,6 +14,7 @@ var App = Vue.extend({
     return {
       auth: false,
       status: 'log in',
+      loginmsg: '',
       usr: 'default',
       msW: '0',
       msL:  '0',
@@ -24,7 +25,6 @@ var App = Vue.extend({
   ready: function(){
     console.log(window.localStorage['LOCAL_TOKEN_KEY'])
     if(tokenValid()){
-      alert("logged in usr: "+window.localStorage['LOCAL_ID'])
       this.auth = true
       d3.select("#login").classed("hidden", true)
       d3.select("#controls").classed("hidden", false)
@@ -44,7 +44,6 @@ var App = Vue.extend({
           console.log("error")
       })
     } else {
-      alert("not logged in")
       this.status = 'log in'
     }
   },
@@ -64,7 +63,8 @@ var App = Vue.extend({
     },
     login: function(event){
       event.preventDefault()
-      var data = JSON.stringify({email: this.email, password: this.password})
+      var pwd = document.getElementById('pwd').value
+      var data = JSON.stringify({email: this.email, password: pwd})
       this.$http.post('/api/login', data, function (data, status, request){
         if(data.success){
           console.log("log in")
@@ -73,6 +73,7 @@ var App = Vue.extend({
           window.location.href = "/"
         } else {
           console.log("incorrect login")
+          this.loginmsg = 'incorrent login'
         }
       })
     },

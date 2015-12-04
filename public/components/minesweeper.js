@@ -1,12 +1,44 @@
 module.exports = {
-  template: '<h1>{{page}}</h1><div id="game"><div>',
+  template: '<h1>{{page}}</h1><button v-on:click="new">reset game</button><div id="game"><div>',
   replace: true,
   data: function () {
     return {
       page: 'minesweeper'
     }
   },
+  methods:{
+    loss: function(){
+      if(window.localStorage['LOCAL_TOKEN_KEY'] != null){
+        Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+        this.$http.post('/api/msloss', function (data, status, request) {
+
+        }).error(function (data, status, request) {
+            // handle error
+            console.log("error")
+        })
+      }
+    },
+    win: function(){
+      if(window.localStorage['LOCAL_TOKEN_KEY'] != null){
+        Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+        this.$http.post('/api/mswin', function (data, status, request) {
+
+        }).error(function (data, status, request) {
+            // handle error
+            console.log("error")
+        })
+      }
+    },
+    new: function(){
+      window.location.href = "/minesweeper"
+      
+    }
+  },
   ready: function(){
+    
+    //newGame()
+    this.loss()
+    this.win()
     const MINE = "x";
 
     var height = 410;
