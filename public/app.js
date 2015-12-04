@@ -14,6 +14,7 @@ var App = Vue.extend({
     return {
       auth: false,
       status: 'log in',
+      loginmsg: '',
       usr: 'default',
       msW: '0',
       msL:  '0',
@@ -62,7 +63,8 @@ var App = Vue.extend({
     },
     login: function(event){
       event.preventDefault()
-      var data = JSON.stringify({email: this.email, password: this.password})
+      var pwd = document.getElementById('pwd').value
+      var data = JSON.stringify({email: this.email, password: pwd})
       this.$http.post('/api/login', data, function (data, status, request){
         if(data.success){
           console.log("log in")
@@ -71,6 +73,7 @@ var App = Vue.extend({
           window.location.href = "/"
         } else {
           console.log("incorrect login")
+          this.loginmsg = 'incorrent login'
         }
       })
     },
