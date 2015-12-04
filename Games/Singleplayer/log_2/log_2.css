@@ -13,8 +13,8 @@ div {
 }
 
 #header, #pre-game, #game, #post-game{
-  width: 40%;
-  margin: 10px auto;
+  width: 454px;
+  margin: 15px auto;
   border: 1px solid black;
   padding: 10px;
   display: block;
@@ -49,11 +49,11 @@ div {
   cursor: pointer;
 }
 
-#game{
+/*#game{
   position: relative;
   width: 40%;
   margin: 0 auto;
-}
+}*/
 
 /*#game:before{
 	content: "";
