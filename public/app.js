@@ -24,7 +24,6 @@ var App = Vue.extend({
   ready: function(){
     console.log(window.localStorage['LOCAL_TOKEN_KEY'])
     if(tokenValid()){
-      alert("logged in usr: "+window.localStorage['LOCAL_ID'])
       this.auth = true
       d3.select("#login").classed("hidden", true)
       d3.select("#controls").classed("hidden", false)
@@ -44,7 +43,6 @@ var App = Vue.extend({
           console.log("error")
       })
     } else {
-      alert("not logged in")
       this.status = 'log in'
     }
   },

@@ -6,7 +6,30 @@ module.exports = {
       page: 'minesweeper'
     }
   },
+  methods:{
+    loss: function(){
+      Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+      this.$http.post('/api/msloss', function (data, status, request) {
+
+      }).error(function (data, status, request) {
+          // handle error
+          console.log("error")
+      })
+    },
+    win: function(){
+      Vue.http.headers.common['x-access-token'] = window.localStorage['LOCAL_TOKEN_KEY'];
+      this.$http.post('/api/mswin', function (data, status, request) {
+
+      }).error(function (data, status, request) {
+          // handle error
+          console.log("error")
+      })
+    }
+  },
   ready: function(){
+    
+    this.loss()
+    this.win()
     const MINE = "x";
 
     var height = 410;
