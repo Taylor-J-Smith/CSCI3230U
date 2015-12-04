@@ -398,6 +398,10 @@ function updateScore()
 {
   d3.select("#score")
     .text(score)
+
+    if(d3.select("#bscore").text() < score)
+      d3.select("#bscore")
+        .text(score)
 }
 
 function checkLoss()
