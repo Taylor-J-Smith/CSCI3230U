@@ -8,11 +8,13 @@ Once you've cloned the git repo, in the root directory of the project...
 
 **3.** Install project dependencies with `sudo npm install`
 
-**4.** Bundle all of the vue components: `sh build.sh`
+**4.** Install browserify: 'sudo npm install browserify -g'
 
-**5.** Start the server using `nodejs server.js`
+**5.** Bundle all of the vue components: `sh build.sh`
 
-**6.** Navigate to `localhost:8080` in your browser.
+**6.** Start the server using `nodejs server.js`
+
+**7.** Navigate to `localhost:8080` in your browser.
 
 ###PLANNING
 ###pages
