@@ -105,6 +105,19 @@ app.post('/api/mswin',isLoggedIn, function(req, res) {
   });
 });
 
+app.post('/api/score',isLoggedIn, function(req, res) {
+ User.findOne({_id:req.decoded._id}, function(err, user) {
+ if (user) {
+    console.log("twentyfourtyeight update: "+user.local.name+" "+user.local.score)
+    user.local.score = 100;
+    user.save();
+    res.json({ success: true});
+   } else {
+    res.json({ success: false});
+    }
+  });
+});
+
 app.get('/api/*', function(req, res) {
     res.status(404).send({
         success: false

@@ -10,8 +10,7 @@ var userSchema = mongoose.Schema({
         password     : {type: String, default: "" },
         msW   		   : {type: Number, default: 0 },
         msL					 : {type: Number, default: 0 },
-        score3		 : {type: Number, default: 0 },
-        score4		 : {type: Number, default: 0 }
+        score		 : {type: Number, default: 0 }
     }
 });
 
