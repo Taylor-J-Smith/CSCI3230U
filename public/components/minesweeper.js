@@ -1,5 +1,5 @@
 module.exports = {
-  template: '<h1>{{page}}</h1><div id="game"><div>',
+  template: '<h1>{{page}}</h1><button v-on:click="new">reset game</button><div id="game"><div>',
   replace: true,
   data: function () {
     return {
@@ -28,10 +28,15 @@ module.exports = {
             console.log("error")
         })
       }
+    },
+    new: function(){
+      window.location.href = "/minesweeper"
+      
     }
   },
   ready: function(){
     
+    //newGame()
     this.loss()
     this.win()
     const MINE = "x";
